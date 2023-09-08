@@ -36,6 +36,12 @@ public class StudentController {
     @DeleteMapping("/deleteStudent/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable String id) {
         repository.deleteById(Long.valueOf(id));
-        return new ResponseEntity<>("Student deleted", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("Student deleted", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<String> deleteAllStudent() {
+        repository.deleteAll();
+        return new ResponseEntity<>("All Students Deleted Successfully", HttpStatus.OK);
     }
 }
