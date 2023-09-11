@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController // marks the class as a controller
 @RequestMapping("/api/students") // Root path to the API endpoints in this class
@@ -43,5 +44,14 @@ public class StudentController {
     public ResponseEntity<String> deleteAllStudent() {
         repository.deleteAll();
         return new ResponseEntity<>("All Students Deleted Successfully", HttpStatus.OK);
+    }
+    @PutMapping("updateStudent/{id}")
+    public ResponseEntity<String> updateStudent(@PathVariable Long id,@RequestBody Student student){
+       Student student1 = repository.findById(id).get();
+       student1.setCourse(student.getCourse());
+       student1.setName(student.getName());
+       student1.setRegNo(student.getRegNo());
+       repository.save(student1);
+       return new ResponseEntity<>("Student Updated Successfully",HttpStatus.OK);
     }
 }
